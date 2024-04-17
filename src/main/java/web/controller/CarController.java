@@ -6,23 +6,23 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import web.DAO.CarDAO;
+import web.service.CarService;
 
 @Controller
 @RequestMapping("/cars")
 public class CarController {
 
-    private final CarDAO carDAO;
+    private final CarService carService;
 
     @Autowired
-    public CarController(CarDAO carDAO) {
-        this.carDAO = carDAO;
+    public CarController(CarService carService) {
+        this.carService = carService;
     }
 
 
     @GetMapping()
     public String perehod(@RequestParam(value = "count", required = false) int number, ModelMap model) {
-        model.addAttribute("cars", carDAO.index(number));
+        model.addAttribute("cars", carService.index(number));
         return "car";
     }
 }
